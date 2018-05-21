@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.enhinck.demo.mapper.DemoMapper">
+
+	<resultMap id="BaseResultMap" type="com.enhinck.demo.model.dto.DemoDO">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findByNameLike" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from demo
+		where 1=1
+		<if test="name != null">
+			AND name like CONCAT(CONCAT('%', #{name,jdbcType=VARCHAR},'%'))
+		</if>
+	</select>
+</mapper>
